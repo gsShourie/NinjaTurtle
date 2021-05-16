@@ -84,7 +84,7 @@ rosrun map_server map_saver -f /home/turtle/TurBot_ws/src/turtlebot_apps/turtleb
 - Go back to the terminal tab where the `keyboard_teleop` node was launched and use it navigate the TurtleBot around the environment. Having navigated the TurtleBot all around the environment, close all the terminal tabs and navigate to `scripts` in `beginner_tutorials` in the `TurBot_ws` workspace to find `TempData.csv`. This file has temperature data for respective points on the map. 
 
 ### To visualize temperature data
-- 
+- Copy the map `.pgm`, map `.yaml` and the `TempData.csv` file into the `Temp Data Visual` folder and then run the `TempVis.py` to generate `TempVisual.png`. This is an image file with the temperature data overlayed on.
 
 ## Notable challenges
 • Mapping with LIDAR:
