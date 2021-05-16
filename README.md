@@ -1,3 +1,4 @@
+
 # Temperature mapping with TurtleBots and ROS
 
 ## Abstract
@@ -18,20 +19,20 @@ The following are the tools or specifications of software and hardware used for 
 
 • Arduino Uno
 
-• Laptop (Workstation) - Ubuntu 14.04 or higher, either dual booted, run on virtual machine or specifically run
+• Laptop (Workstation) - Ubuntu 14.04 or higher, either through virtual machine or boot-up.
 
 • WiFi router
 
 ### Basic installion guide:
 - For this project, on the workstation Ubuntu 20.04 was installed. Follow the [link](https://ubuntu.com/download/desktop) for installing it.
 
-- Ubuntu is run as a virtual machine. Follow the [link](https://my.vmware.com/web/vmware/downloads/#all_products) to install the VMware workstation player. 
+- Ubuntu is run as a virtual machine in the workstation. Follow the [link](https://my.vmware.com/web/vmware/downloads/#all_products) to install the VMware workstation player. 
 
 - ROS Noetic Ninjemys was installed on the workstation. Follow the [link](http://wiki.ros.org/noetic/Installation/Ubuntu) to install the same. This [video](https://www.youtube.com/watch?v=9U6GDonGFHw) may help you do the same.
 
 - Few packages need to be installed on the ASUS laptop for operating TurtleBots. Follow the [link](http://wiki.ros.org/turtlebot/Tutorials/indigo/Turtlebot%20Installation) to install them. 
 
-- Follow the [tutorial](http://wiki.ros.org/turtlebot/Tutorials/indigo/Network%20Configuration) to configure the network between the ASUS laptop and the workspace. To test the connection, open the terminal on the workstation and run `ssh -X [username of ASUS laptop]@[IP of ASUS laptop on the network]`, enter the password and the connection is secure. For example, `ssh -X turtlebot@192.168.0.3`
+- Follow the [tutorial](http://wiki.ros.org/turtlebot/Tutorials/indigo/Network%20Configuration) to configure the network between the ASUS laptop and the workspace. To test the connection, open the terminal on the workstation and run `ssh -X [username of ASUS laptop]@[IP of ASUS laptop on the network]`, enter the password and the connection is secure. `-X` servers are used for enabling visual data stream which is required for RViz. For example, `ssh -X turtlebot@192.168.0.3`
 
 - Download the repository on the ASUS laptop, extract the `TurBot_ws` and navigate into the workspace `TurBot_ws` through the terminal and build the catkin workspace by running `catkin_make`.
 
@@ -60,10 +61,10 @@ roslaunch turtlebot_teleop keyboard_teleop.launch`. With RViz open, and the fore
 - Once the environment is clearly mapped, close the `keyboard_teleop` node by using the keystroke `Ctrl+c`
 
 - Save the map by running `
-rosrun map_server map_saver -f /home/turtle/TurBot_ws/src/turtlebot_apps/turtlebot_navigation/maps/my_map` on the terminal.
+rosrun map_server map_saver -f /home/turtle/TurBot_ws/src/turtlebot_apps/turtlebot_navigation/maps/Map` on the terminal.
 
 ### To map the temperature of the environment
-- Connect the LIDAR sensor to the TurtleBot. Connect the TurtleBot and the Arduino Uno to the ASUS laptop. Upload the Arduino file `temperaturePublishToROS.ino` to the Uno board. Note the port number to which the Arudino is connected to. For example, `/dev/ttyACM1`
+- Upload the Arduino file `temperaturePublishToROS.ino` to the Uno board. Note the port number to which the Arudino is connected to. For example, `/dev/ttyACM1`
 
 - Navigate to `launch` in `turtlebot_navigation` in `TurBot_ws`. Open the file `amcl_hoku.launch` and modify the `default` field with `arg_name` as `map_file` to include the address of the map file that was just created
 
@@ -75,39 +76,41 @@ rosrun map_server map_saver -f /home/turtle/TurBot_ws/src/turtlebot_apps/turtleb
 
 - On another terminal tab on the workstation run `roslaunch turtlebot_rviz_launchers view_navigation.launch` to visualize the TurtleBot in the map. RViz should open up with the TurtleBot localized at a random point on the map, with green arrows under it. 
 
-- On another terminal tab on the workstation run `rosservice call /global_localisation "{}"`. This initiates a service to instruct the TurtleBot about its position on the map. Upon running the service, arrows are dispersed all over the map.
+- On another terminal tab on the workstation run `rosservice call /global_localisation "{}"`. This service initializes localisation of the robot in the map by assigning equal probabilities among all the locations in the map which is seen in RViz as green arrows being dispersed all along. 
 
-- To help the TurtleBot loacalize itself, it should be moved around the map so that it can find cost maps. To do this, run `roslaunch turtlebot_teleop keyboard_teleop.launch` and navigate the TurtleBot in the environment until it is localized, i.e. the arrows are all under the TurtleBot in the RViz. The position of the TurtleBot in the environment should be mimicked by the TurtleBot in the map on RViz.
+- To help the TurtleBot loacalize itself, it should be moved around in the map for a brief period of time for the localization algorithms to converge to a solution of its position. To do this, run `roslaunch turtlebot_teleop keyboard_teleop.launch` and navigate the TurtleBot in the environment until it is localized, i.e. the arrows are all under the TurtleBot in the RViz. The position of the TurtleBot in the environment should be mimicked by the TurtleBot in the map on RViz.
 
 - Once localization is done, we are ready to map the temperature of the environment. To do this, on another terminal tab of the workstation run `rosrun beginner_tutorials listen.py`
 
 - Go back to the terminal tab where the `keyboard_teleop` node was launched and use it navigate the TurtleBot around the environment. Having navigated the TurtleBot all around the environment, close all the terminal tabs and navigate to `scripts` in `beginner_tutorials` in the `TurBot_ws` workspace to find `TempData.csv`. This file has temperature data for respective points on the map. 
 
 ### To visualize temperature data
-- Copy the map `.pgm`, map `.yaml` and the `TempData.csv` file into the `Temp Data Visual` folder and then run the `TempVis.py` to generate `TempVisual.png`. This is an image file with the temperature data overlayed on.
+- Copy the map - `Map.pgm`, `Map.yaml` and the `TempData.csv` file into the `Temp Data Visual` folder and then run the `TempVis.py` to generate `TempVisual.png`. This is an image file with the temperature data superimposed upon it .
 
 ## Notable challenges
 • Mapping with LIDAR:
-The initial steps of bringing up the turtlebot and running the gmapping module to map an area with the Hokuyo LIDAR has been exhaustive and took long for us to figure it out. Although this is relatively an easier task, we struggled due to the fact that we were beginners in ROS
-and just started exploring its framework.
+The initial steps of bringing up the turtlebot and running the gmapping module to map an area with the Hokuyo LIDAR has been exhaustive and took long for us to figure it out. Although this is relatively an easier task, we struggled due to the fact that we were beginners in ROS and just started exploring its framework.
 The problem was that the right workspace was not being accessed when running various files. This was solved by including the right workspace in the `.bashrc` file.
 This problem helped us better understand the fundamentals
 and, in the end, we figured it out.
 
 • Decoding the generated map & way point generation:
-Understanding the map and the associated .yaml file and then writing a program to take this map and generate a sequence of co ordinates of the way points for a trajectory evenly
-covering the whole map. This has been implemented for a rectangular shaped map in the python code `imageProcessing.ipynb`.
+Understanding the map and the associated .yaml file and then writing a program to take this map and generate a sequence of co-ordinates of the way points for a trajectory evenly covering the whole map. Additionally, a trajectory map of sorts is created which inflates the borders to avoid collision .This has been implemented in the python code `imageProcessing.ipynb`.
 
 • Navigation Goals:
-This is sending goals to the navigation stack of the TurtleBot for it to reach a specific point in a map when placed in the same area represented in the map. This has been achieved by using RViz, but to implement it using code we are still working. One recent cause we found can be linked to the fact that it is difficult for the robot to localize itself in a symmetric area and hence we are working to fix this.
+This is sending goals to the navigation stack of the TurtleBot for it to reach a specific point in a map when placed in the same area represented in the map. This has been achieved by using RViz, but to implement it using code we are still working. One recent cause we found can be linked to the fact that it is difficult for the robot to localize itself in a symmetric area and hence we are working to fix this. This step is important for autonomous temperature mapping.
 
 • Temperature Data Visualization:
-The challenge of an aesthetic visualization of the temperature data vs space.
+The challenge of an aesthetic visualization of the temperature data vs space. This is implemented in `TempVis.py` script. The temperature points are color graded in the output image.
 
-## Current status and future work
-Currently, manual mapping of the environment can be successfully done. Also the temperature of the map can be manually mapped. The temperature data collected can also be visualized on an image using the python code `TempVis.py`.
+## Current status
+Manual mapping of the environment is successfully done. Also the temperature of the map is manually mapped. The temperature data collected can also be visualized on an image using the python code `TempVis.py`. In short, manual mapping and visualization are successfully implemented.
 
-The file `blah.py` in `scripts` in `beginner_tutorials` is an attempt to enable the TurtleBot move to a given point in the map autonomously. For further work, the TurtleBot must be enabled to move around autonomously around a known map. Given a list of points in the file `blah.py`, the TurtleBot should be able to navigate through them in the same order. A ROS service file should be authored which when called must return the `amcl_pose` and the temperature data at a given point only. Once this has been successfully implemented, the python code in `imageProcessing.ipynb` must be included in `blah.py` to return a list of points. This list of points sequentially helps the TurtleBot to navigate all around the map. The code in `listen.py` should also be included and modified in `blah.py` such that a call to the previously called service is made when the TurtleBot reaches a given point such that the `amcl_pose` and temperature data at the point are saved into `TempData.py`
+## Further work
+
+This involves autonomously navigating the known map and collecting temperature values by a following a series of way-points generated for that map. This couldn't be done as we were unable to implement the sending of navigation goals.
+ 
+The file `blah.py` in `scripts` in `beginner_tutorials` is an attempt to enable the TurtleBot move to a given point in the map autonomously. Given a list of points in the file `blah.py`, the TurtleBot should be able to navigate through them respecting the order. A ROS service file should be authored which when called must return the `amcl_pose` and the temperature data at a given point only. Once the above has been successfully implemented, the integration of  `imageProcessing.ipynb` & `blah.py` must be done. The code in `listen.py` can be used to implement the previously mentioned service which when called in `blah.py`, the TurtleBot will be able to get its `amcl_pose` and temperature value for a point and the whole data be saved to `TempData.csv`.
 
 ## References
 - [Tutorial to download the workspace for TurtleBots](https://www.ncnynl.com/archives/201611/1097.html)
