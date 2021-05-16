@@ -89,4 +89,5 @@ The file `blah.py` in `scripts` in `beginner_tutorials` is an attempt to enable 
 
 ## Authors
 [Prithvi Bharadwaj M.](https://sites.google.com/view/prithvi-bharadwaj-m/home)
+
 [Shourie G. Srinivas](www.shouriegs.com)
