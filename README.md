@@ -1,7 +1,7 @@
 
 # Temperature mapping with TurtleBots and ROS
 
-## Abstract
+## Introduction
 Data is very important. Be it weather data, inventory data, financial data, etc. As we rely on data immensely, acquiring data is equally important. This report describes a project that aims to map the temperature of an environment using ROS (Robotic Operating System) and Turtlebots. ROS is a rapidly developing framework with a lot of community-driven work for Robotics and Turtlebots are cost-effective and developer friendly for beginners.
 
 ### Goals:
