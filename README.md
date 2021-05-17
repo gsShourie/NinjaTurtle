@@ -128,6 +128,22 @@ The file `blah.py` in `scripts` in `beginner_tutorials` is an attempt to enable 
 
 - [Temperature moduel configuration](https://arduinomodules.info/ky-013-analog-temperature-sensor-module/)
 
+## Result
+
+The temperature sensor is configured to collect readings and publish them continuously in a topic through a node. We have manually navigated the robot in the known map with the program  `listen.py` that collects these temperature values and the pose (amcl) of the robot in the map at regular intervals of time and save them in a csv file. The following image is the map image of the environment.
+![alt text][logo1]
+[logo1]: https://github.com/gsShourie/NinjaTurtle/blob/master/Map.pgm
+
+The following image shows a snippet of the temperature data in the TempData.csv
+![alt text][logo2]
+[logo2]: https://github.com/gsShourie/NinjaTurtle/blob/master/sjkdf.png
+
+This csv file with temperature & coordinate data along with the map file is passed to the python script to generate the final image of the map with a color-based representation of temperature at the specific points. The below image doesn’t have much variation due to the fact that this whole measurement was performed in a closed room without any considerable temperature changes.
+The following image shows the temperature data integrated with the map.
+![alt text][logo2]
+[logo2]: https://github.com/gsShourie/NinjaTurtle/blob/master/TempVisual%20with%20legend.png
+
+
 ## Authors
 [Prithvi Bharadwaj M.](https://sites.google.com/view/prithvi-bharadwaj-m/home)
 
