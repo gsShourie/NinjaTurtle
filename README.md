@@ -134,13 +134,11 @@ The temperature sensor is configured to collect readings and publish them contin
 ![Environment map](https://github.com/gsShourie/NinjaTurtle/blob/master/Map.pgm)
 
 The following image shows a snippet of the temperature data in the TempData.csv
-![alt text][logo2]
-[logo2]: https://github.com/gsShourie/NinjaTurtle/blob/master/sjkdf.png
+![TempData.csv snippet](https://github.com/gsShourie/NinjaTurtle/blob/master/sjkdf.png)
 
 This csv file with temperature & coordinate data along with the map file is passed to the python script to generate the final image of the map with a color-based representation of temperature at the specific points. The below image doesn’t have much variation due to the fact that this whole measurement was performed in a closed room without any considerable temperature changes.
 The following image shows the temperature data integrated with the map.
-![alt text][logo3]
-[logo3]: https://github.com/gsShourie/NinjaTurtle/blob/master/TempVisual%20with%20legend.png
+![Temperature data with map](https://github.com/gsShourie/NinjaTurtle/blob/master/TempVisual%20with%20legend.png)
 
 
 ## Authors
