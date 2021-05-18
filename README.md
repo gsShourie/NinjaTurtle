@@ -67,7 +67,7 @@ rosrun map_server map_saver -f /home/turtle/TurBot_ws/src/turtlebot_apps/turtleb
 ### To map the temperature of the environment
 - Upload the Arduino file `temperaturePublishToROS.ino` to the Uno board. Note the port number to which the Arudino is connected to. For example, `/dev/ttyACM1`
 
-- Navigate to `launch` in `turtlebot_navigation` in `TurBot_ws`. Open the file `amcl_hoku.launch` and modify the `default` field with `arg_name` as `map_file` to include the address of the map file that was just created
+- Navigate to `launch` in `turtlebot_navigation` in `TurBot_ws`. Open the file `amcl_hoku.launch` and modify the `default` field with `arg_name` as `map_file` to include the absolute address of the map file that was just created
 
 - On a terminal tab on the ASUS laptop run `roslaunch turtlebot_bringup minimal.launch`. 
 
