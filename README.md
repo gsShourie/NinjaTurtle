@@ -11,6 +11,7 @@ Data is very important. Be it weather data, inventory data, financial data, etc.
 
 ## Software and Hardware requirements:
 The following are the tools or specifications of software and hardware used for this project:
+
 • Turtlebot 2, with its laptop (referred to as ASUS laptop) - ASUS laptop with Ubuntu 14.04, and ROS Indigo 
 
 • Hokuyo LIDAR sensor – URG-04LX --> Range : 60mm - 4095mm; Operating voltage - 5V
